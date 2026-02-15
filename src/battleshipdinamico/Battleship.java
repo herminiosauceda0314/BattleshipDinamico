@@ -463,8 +463,6 @@ public class Battleship {
                         continue;     
                     }
                     
-                    sc.nextLine();
-
                     int tamaño;
                         switch (codigo) {
                             case "PA":
