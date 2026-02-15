@@ -29,7 +29,6 @@ public class Battleship {
     private int barcosRestantes2;
     private Player oponente;
     
-    
     public void menuInicial(){
         while (true) {
             System.out.println("\n--Menu de Inicio--");
@@ -43,7 +42,7 @@ public class Battleship {
                 opcion = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
-                System.err.println("Error: Debes ingresar un numero, no letras.");
+                System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                 sc.nextLine(); 
                 continue;     
             }
@@ -131,7 +130,7 @@ public class Battleship {
                 opcion = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
-                System.err.println("Error: Debes ingresar un numero, no letras.");
+                System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                 sc.nextLine(); 
                 continue;     
         }
@@ -343,11 +342,24 @@ public class Battleship {
                 System.out.println("----------");
                 System.out.print("Nuevo username: ");
                 String nuevoUsername = sc.nextLine();
-                System.out.print("Nuevo password: ");
-                String nuevoPassword = sc.nextLine();
-                jugadorActual.setUsername(nuevoUsername);
-                jugadorActual.setPassword(nuevoPassword);
-                System.out.println("Datos modificados.");
+                
+                boolean disponible = true;
+                for (Player p : jugadores){
+                    if(p.getUsername().equalsIgnoreCase(nuevoUsername) && p != jugadorActual){
+                        disponible = false;
+                        break;
+                    }
+                }
+                if (!disponible){
+                    System.err.println("Error: El username '" + nuevoUsername + "' ya esta en uso por otro jugador. Intente denuevo.");
+                }else{
+                    System.out.print("Nuevo password: ");
+                    String nuevoPassword = sc.nextLine();
+                    
+                    jugadorActual.setUsername(nuevoUsername);
+                    jugadorActual.setPassword(nuevoPassword);
+                    System.out.println("Datos modificados exitosamente.");
+                }
                 break;
                 
             case "c":
