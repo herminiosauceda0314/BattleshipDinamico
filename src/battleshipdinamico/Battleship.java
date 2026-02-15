@@ -116,7 +116,7 @@ public class Battleship {
     
     public void menuPrincipal() {
         while (true) {
-            
+        System.out.println("\nPlayer: " + jugadorActual.getUsername());
         System.out.println("\n--Menu Principal--");
         System.out.println("1. Jugar Battleship");
         System.out.println("2. Configuracion");
@@ -573,7 +573,7 @@ public class Battleship {
                 }
             }
 
-            System.out.println("El tablero de " + defensor.getUsername() + " se está regenerando...");
+            System.out.println("El tablero de " + defensor.getUsername() + " se esta regenerando...");
             regenerarTablero(defensor, board, barcos); 
 
             return true; 
@@ -676,7 +676,7 @@ public class Battleship {
     }
     
     public void iniciarJuego() {
-        System.out.print("Ingrese username del Player 2 (o EXIT para cancelar): ");
+        System.out.println("Ingrese username del Player 2 (o EXIT para cancelar): ");
         String user2 = sc.nextLine();
         if (user2.equalsIgnoreCase("EXIT")) return;
 
@@ -734,7 +734,6 @@ public class Battleship {
             }
 
             if (fila == -1) {
-                sc.nextLine(); 
                 if (confirmarRetiro(atacante, defensor)) return;
                 else continue; 
             }
