@@ -29,22 +29,6 @@ public class Battleship {
     private int barcosRestantes2;
     private Player oponente;
     
-    enum Dificultad {
-    EASY(5), NORMAL(4), EXPERT(2), GENIUS(1);
-    
-        private final int numBarcos;
-        Dificultad(int numBarcos){ 
-            this.numBarcos = numBarcos; 
-        }
-        public int getNumBarcos(){ 
-            return numBarcos; 
-        }
-    }
-
-    enum ModoJuego {
-        ARCADE, TUTORIAL
-    }
-    
     
     public void menuInicial(){
         while (true) {
