@@ -197,7 +197,7 @@ public class Battleship {
                             dif = sc.nextInt();
                             sc.nextLine();
                         } catch (Exception e) {
-                            System.err.println("Error: Debes ingresar un numero, no letras.");
+                            System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                             sc.nextLine(); 
                             continue;     
                     }
@@ -221,7 +221,7 @@ public class Battleship {
                         }
                     
                     System.out.println("----------");
-                    System.out.println("Dificultad cambiada a: " + dificultad);
+                    System.out.println("Dificultad de juego actual: " + dificultad);
                     break;
                 case "b":
                     System.out.println("----------");
@@ -235,7 +235,7 @@ public class Battleship {
                             mod = sc.nextInt();
                             sc.nextLine();
                         } catch (Exception e) {
-                            System.err.println("Error: Debes ingresar un numero, no letras.");
+                            System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                             sc.nextLine(); 
                             continue;     
                     }
@@ -253,7 +253,7 @@ public class Battleship {
                     }
                     
                     System.out.println("----------");
-                    System.out.println("Modo cambiado a: " + modo);
+                    System.out.println("Modo de juego actual: " + modo);
                     break;
                 case "c":
                     return;
@@ -333,7 +333,7 @@ public class Battleship {
         switch (opcion) {
             case "a":
                 System.out.println("----------");
-                System.out.println("Datos de " + jugadorActual.getUsername() + ":");
+                System.out.println("--- Datos de " + jugadorActual.getUsername() + " ---");
                 System.out.println("Username: " + jugadorActual.getUsername());
                 System.out.println("Puntos: " + jugadorActual.getPuntos());
                 break;
@@ -351,7 +351,7 @@ public class Battleship {
                     }
                 }
                 if (!disponible){
-                    System.err.println("Error: El username '" + nuevoUsername + "' ya esta en uso por otro jugador. Intente denuevo.");
+                    System.err.println("Error: El username '" + nuevoUsername + "' ya esta en uso por otro jugador. Intente de nuevo.");
                 }else{
                     System.out.print("Nuevo password: ");
                     String nuevoPassword = sc.nextLine();
@@ -371,9 +371,12 @@ public class Battleship {
                     System.out.println("Cuenta eliminada. Volviendo al menu de inicio.");
                     jugadorActual = null;
                     menuInicial();
+                    
                     return;
+                    
                 } else if (confirmar.equalsIgnoreCase("No")) {
                     return;
+                    
                 }else{
                     System.err.println("Opcion invalida. Debes escribir 'Si' o 'No'.");
                 }
@@ -443,7 +446,7 @@ public class Battleship {
                         fila = sc.nextInt();
                         sc.nextLine();
                     } catch (Exception e) {
-                        System.err.println("Error: Debes ingresar un numero, no letras.");
+                        System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                         sc.nextLine();
                         continue;     
                     }
@@ -455,7 +458,7 @@ public class Battleship {
                         col = sc.nextInt();
                         sc.nextLine();
                     } catch (Exception e) {
-                        System.err.println("Error: Debes ingresar un numero, no letras.");
+                        System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                         sc.nextLine();
                         continue;     
                     }
@@ -727,7 +730,7 @@ public class Battleship {
                 fila = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
-                System.err.println("Error: Debes ingresar un numero, no letras.");
+                System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                 sc.nextLine();
                 continue;     
             }
@@ -745,7 +748,7 @@ public class Battleship {
                 col = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
-                System.err.println("Error: Debes ingresar un numero, no letras.");
+                System.err.println("Error: Debes ingresar un numero, no letras o simbolos.");
                 sc.nextLine();
                 continue;     
             }
@@ -756,7 +759,7 @@ public class Battleship {
             }
 
             if (fila < 0 || fila > 7 || col < 0 || col > 7) {
-                System.err.println("Coordenadas fuera de rango! Pierdes el turno.");
+                System.err.println("Coordenadas fuera de rango! Pierde el turno.");
                 turnoP1 = !turnoP1;
                 continue;
             }
