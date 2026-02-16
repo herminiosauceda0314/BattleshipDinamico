@@ -550,7 +550,7 @@ public class Battleship {
             return false; 
             
         } else if (board[fila][col].equals("F") || board[fila][col].equals("X")) {
-            System.err.println("Error: Ya bombardeaste aqui anteriormente.");
+            System.err.println("Error: Ya bombardeaste aqui anteriormente. Pierdes Turno.");
             return false;
             
         } else {
@@ -775,8 +775,16 @@ public class Battleship {
             turnoP1 = !turnoP1;
         }
 
-        Player ganador = (barcosRestantes1 == 0) ? oponente : jugadorActual;
-        Player perdedor = (ganador == jugadorActual) ? oponente : jugadorActual;
+        Player ganador;
+        Player perdedor;
+        
+        if(barcosRestantes1 == 0){
+            ganador = jugadorActual;
+            perdedor = oponente;
+        }else{
+            ganador = oponente;
+            perdedor = jugadorActual;
+        }
 
         System.out.println("\nFelicidades " + ganador.getUsername() + "!");
         System.out.println(ganador.getUsername() + " hundido todos los barcos de " + perdedor.getUsername());
