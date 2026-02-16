@@ -531,11 +531,11 @@ public class Battleship {
 
                 if (modo.equals("TUTORIAL")) {
                     System.out.print(celda + "  ");
-                } else {
+                }else{
                     if (celda.equals("X") || celda.equals("F")) {
                         System.out.print(celda + "  "); 
                     } else {
-                        System.out.print("~" + "  "); 
+                        System.out.print("~  "); 
                     }
                 }
             }
@@ -724,7 +724,16 @@ public class Battleship {
 
             System.out.println("\n========================================");
             System.out.println("Turno de: " + atacante.getUsername());
-            System.out.println("--- " + defensor.getUsername() + " tiene " + (turnoP1 ? barcosRestantes2 : barcosRestantes1) + " barcos vivos ---");
+            
+            int barcosEnemigos;
+
+            if (turnoP1) {
+                barcosEnemigos = barcosRestantes2;
+            } else {
+                barcosEnemigos = barcosRestantes1;
+            }
+            
+            System.out.println("--- " + defensor.getUsername() + " tiene " + barcosEnemigos + " barcos vivos ---");
 
             mostrarTablero(tableroDefensor, defensor);
 
