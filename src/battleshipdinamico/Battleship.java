@@ -483,7 +483,7 @@ public class Battleship {
                         }
                         
                     if (fila < 0 || fila > 7 || col < 0 || (col + tamaño) > 8) {
-                        System.err.println("Error: El barco se sale de los límites.");
+                        System.err.println("Error: El barco se sale de los limites.");
                         continue;
                     }
 
@@ -496,7 +496,7 @@ public class Battleship {
                     }
 
                     if (overlap) {
-                        System.err.println("Error: Ya hay un barco en esa posición.");
+                        System.err.println("Error: Ya hay un barco en esa posicion.");
                         continue;
                     }
 
@@ -550,7 +550,7 @@ public class Battleship {
             return false; 
             
         } else if (board[fila][col].equals("F") || board[fila][col].equals("X")) {
-            System.err.println("Error: Ya bombardeaste aquí anteriormente.");
+            System.err.println("Error: Ya bombardeaste aqui anteriormente.");
             return false;
             
         } else {
@@ -638,7 +638,8 @@ public class Battleship {
                 }
             }
 
-            if (partesVivas == 0) continue;
+            if (partesVivas == 0) 
+                continue;
 
             boolean colocado = false;
             while (!colocado) {
@@ -651,15 +652,21 @@ public class Battleship {
                         choque = true;
                         break;
                     }
+                    
+                    for (int[] imp : barcosImpactados){
+                        if(imp[0] == fila && imp[1] == (col + j)){
+                            choque = true;
+                            break;
+                        }
+                    }
+                    if (choque)
+                        break;
                 }
 
                 if (!choque) {
                     ArrayList<int[]> posicionesNuevas = new ArrayList<>();
 
-                    String nombreVisual = codigoBarco;
-                    if (codigoBarco.startsWith("DT")) {
-                        nombreVisual = "DT";
-                    }
+                    String nombreVisual = codigoBarco.startsWith("DT") ? "DT" : codigoBarco;
 
                     for (int j = 0; j < partesVivas; j++) {
                         board[fila][col + j] = nombreVisual;

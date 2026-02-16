@@ -62,7 +62,7 @@ public class Player {
         int contador = 1;
         boolean tieneLogs = false;
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             if (logs[i] != null) {
                 System.out.println(contador + ". " + logs[i]);
                 contador++;
