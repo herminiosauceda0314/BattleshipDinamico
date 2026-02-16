@@ -700,14 +700,14 @@ public class Battleship {
     private int contarBarcosVivos(HashMap<String, ArrayList<int[]>> barcos) {
         int contador = 0;
         for (ArrayList<int[]> posiciones : barcos.values()) {
-            boolean vivo = false;
+            boolean barcoVivo = false;
             for (int[] pos : posiciones) {
                 if (pos[0] != -1) {
-                    vivo = true;
+                    barcoVivo = true;
                     break;
                 }
             }
-            if (vivo) contador++;
+            if (barcoVivo) contador++;
         }
         return contador;
     }
