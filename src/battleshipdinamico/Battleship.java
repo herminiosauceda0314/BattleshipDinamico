@@ -117,7 +117,7 @@ public class Battleship {
     public void menuPrincipal() {
         while (true) {
         System.out.println("\nPlayer: " + jugadorActual.getUsername());
-        System.out.println("\n--Menu Principal--");
+        System.out.println("--Menu Principal--");
         System.out.println("1. Jugar Battleship");
         System.out.println("2. Configuracion");
         System.out.println("3. Reportes");
@@ -335,7 +335,9 @@ public class Battleship {
                 System.out.println("----------");
                 System.out.println("--- Datos de " + jugadorActual.getUsername() + " ---");
                 System.out.println("Username: " + jugadorActual.getUsername());
+                System.out.println("Password: " + jugadorActual.getPassword());
                 System.out.println("Puntos: " + jugadorActual.getPuntos());
+                
                 break;
                 
             case "b":
@@ -424,7 +426,7 @@ public class Battleship {
                 String codigo = sc.nextLine().toUpperCase();
                 
                 if (!codigo.equals("PA") && !codigo.equals("AZ") && !codigo.equals("SM") && !codigo.equals("DT")) {
-                System.err.println("Error: Código '" + codigo + "' no válido. Solo se permite: PA, AZ, SM o DT.");
+                System.err.println("Error: Codigo '" + codigo + "' no valido. Solo se permite: PA, AZ, SM o DT.");
                 continue;
                 }
 
@@ -589,7 +591,7 @@ public class Battleship {
             System.out.println("El ganador es " + defensor.getUsername() + " por retirarse!");
             defensor.setPuntos(defensor.getPuntos() + 3);
             
-            atacante.addLog(atacante.getUsername() + " se retiro del juego dejando de ganador a" + defensor.getUsername());
+            atacante.addLog(atacante.getUsername() + " se retiro del juego dejando de ganador a " + defensor.getUsername());
             defensor.addLog(defensor.getUsername() + " gano, su oponente " + atacante.getUsername() + " se retiro (+3 pts)");
             
             return true;          
