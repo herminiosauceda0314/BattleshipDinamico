@@ -560,9 +560,11 @@ public class Battleship {
 
             boolean barcoHundido = true;
             for (int[] pos : barcos.get(codigo)) {
-                if (!board[pos[0]][pos[1]].equals("X")) {
-                    barcoHundido = false;
-                    break;
+                if(pos[0] >= 0 && pos[1] >= 0){
+                    if (!board[pos[0]][pos[1]].equals("X")) {
+                        barcoHundido = false;
+                        break;
+                    }
                 }
             }
 
@@ -570,7 +572,7 @@ public class Battleship {
                 System.out.println("El barco " + codigo + " se ha hundido!");
                 if (esTurnoP1) {
                     barcosRestantes2--; 
-                } else {
+                }else{
                     barcosRestantes1--;
                 }
             }
@@ -626,20 +628,28 @@ public class Battleship {
 
             int partesVivas = 0;
             for (int[] posVieja : posicionesViejas) {
-                boolean golpeado = false;
-                for (int[] imp : barcosImpactados) {
-                    if (imp[0] == posVieja[0] && imp[1] == posVieja[1]) {
-                        golpeado = true;
-                        break;
+                if (posVieja[0] != -1) {
+                    boolean golpeado = false;
+                    for (int[] imp : barcosImpactados) {
+                        if (imp[0] == posVieja[0] && imp[1] == posVieja[1]) {
+                            golpeado = true;
+                            break;
+                        }
                     }
-                }
-                if (!golpeado) {
-                    partesVivas++;
+                    if (!golpeado) {
+                        partesVivas++;
+                    }
                 }
             }
 
-            if (partesVivas == 0) 
+            if (partesVivas == 0) {
+                ArrayList<int[]> posicionesMuertas = new ArrayList<>();
+                for (int k = 0; k < posicionesViejas.size(); k++) {
+                    posicionesMuertas.add(new int[]{-1, -1});
+                }
+                barcos.put(codigoBarco, posicionesMuertas);
                 continue;
+            } 
 
             boolean colocado = false;
             while (!colocado) {
@@ -652,25 +662,28 @@ public class Battleship {
                         choque = true;
                         break;
                     }
-                    
+
                     for (int[] imp : barcosImpactados){
                         if(imp[0] == fila && imp[1] == (col + j)){
                             choque = true;
                             break;
                         }
                     }
-                    if (choque)
-                        break;
+                    if (choque) break;
                 }
 
                 if (!choque) {
                     ArrayList<int[]> posicionesNuevas = new ArrayList<>();
-
                     String nombreVisual = codigoBarco.startsWith("DT") ? "DT" : codigoBarco;
 
                     for (int j = 0; j < partesVivas; j++) {
                         board[fila][col + j] = nombreVisual;
                         posicionesNuevas.add(new int[]{fila, col + j});
+                    }
+
+                    int piezasFaltantes = posicionesViejas.size() - partesVivas;
+                    for(int k = 0; k < piezasFaltantes; k++){
+                        posicionesNuevas.add(new int[]{-1,-1});
                     }
 
                     barcos.put(codigoBarco, posicionesNuevas);
@@ -682,6 +695,21 @@ public class Battleship {
         for (int[] pos : barcosImpactados) {
             board[pos[0]][pos[1]] = "X";
         }
+    }
+    
+    private int contarBarcosVivos(HashMap<String, ArrayList<int[]>> barcos) {
+        int contador = 0;
+        for (ArrayList<int[]> posiciones : barcos.values()) {
+            boolean vivo = false;
+            for (int[] pos : posiciones) {
+                if (pos[0] != -1) {
+                    vivo = true;
+                    break;
+                }
+            }
+            if (vivo) contador++;
+        }
+        return contador;
     }
     
     public void iniciarJuego() {
@@ -722,16 +750,13 @@ public class Battleship {
             String[][] tableroDefensor = turnoP1 ? board2 : board1;
             HashMap<String, ArrayList<int[]>> barcosDefensor = turnoP1 ? barcos2 : barcos1;
 
+            barcosRestantes1 = contarBarcosVivos(barcos1);
+            barcosRestantes2 = contarBarcosVivos(barcos2);
+            
             System.out.println("\n========================================");
             System.out.println("Turno de: " + atacante.getUsername());
             
-            int barcosEnemigos;
-
-            if (turnoP1) {
-                barcosEnemigos = barcosRestantes2;
-            } else {
-                barcosEnemigos = barcosRestantes1;
-            }
+            int barcosEnemigos = turnoP1 ? barcosRestantes2 : barcosRestantes1;
             
             System.out.println("--- " + defensor.getUsername() + " tiene " + barcosEnemigos + " barcos vivos ---");
 
@@ -788,11 +813,11 @@ public class Battleship {
         Player perdedor;
         
         if(barcosRestantes1 == 0){
-            ganador = jugadorActual;
-            perdedor = oponente;
-        }else{
             ganador = oponente;
             perdedor = jugadorActual;
+        }else{
+            ganador = jugadorActual;
+            perdedor = oponente;
         }
 
         System.out.println("\nFelicidades " + ganador.getUsername() + "!");
@@ -802,7 +827,7 @@ public class Battleship {
         String finalLog = ganador.getUsername() + " hundido todos los barcos de " + perdedor.getUsername() + " en modo " + dificultad;
         ganador.addLog(finalLog);
         perdedor.addLog(perdedor.getUsername() + " perdio contra " + ganador.getUsername() + " en modo " + dificultad);
-        perdedor.addLog(finalLog);
+        //perdedor.addLog(finalLog);
         
         menuPrincipal();
     }
